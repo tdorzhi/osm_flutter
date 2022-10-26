@@ -516,6 +516,9 @@ class FlutterOsmView(
                 "map#orientation" -> {
                     mapOrientation(call, result)
                 }
+                "map#rotate" -> {
+                    mapRotate(call, result)
+                }
                 "user#locationMarkers" -> {
                     changeLocationMarkers(call, result)
                 }
@@ -1045,6 +1048,12 @@ class FlutterOsmView(
         mapSnapShot().saveMapOrientation(map!!.mapOrientation)
         map!!.invalidate()
         result.success(null)
+    }
+
+    private fun mapRotate(call: MethodCall, result: MethodChannel.Result) {
+        map!!.mapOrientation = (call.arguments as Double?)?.toFloat() ?: 0f
+        map!!.invalidate()
+        result.success(true)
     }
 
 
